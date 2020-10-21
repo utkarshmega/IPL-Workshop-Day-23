@@ -19,5 +19,12 @@ public class IPLAnalyserTest {
 		double maxAvg = iplLeagueAnalyser.topBattingAvg();
 		Assert.assertEquals(83.2, maxAvg, 0.0);
 	}
+	
+	@Test
+	public void givenIPLFile_FindMaxStrikeRate() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		double maxStrikeRate = iplLeagueAnalyser.maxStrikingRates();
+		Assert.assertEquals(333.33, maxStrikeRate, 0.0);
+	}
 
 }

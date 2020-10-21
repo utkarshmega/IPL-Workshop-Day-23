@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
+import javax.security.auth.x500.X500Principal;
+
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -45,15 +47,28 @@ public class IplLeagueAnalyser {
 		}
 
 	}
+
 	public double topBattingAvg() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
-		double maxAvgScore = list.stream().filter(x -> !x.average.equals("-"))
-				.map(x -> Double.parseDouble(x.average)).max(Double::compare).get();
+		double maxAvgScore = list.stream().filter(x -> !x.average.equals("-")).map(x -> Double.parseDouble(x.average))
+				.max(Double::compare).get();
 		ArrayList<IplColumns> maxAvgPlayerList = (ArrayList<IplColumns>) list.stream()
 				.filter(x -> x.average.equals(Double.toString(maxAvgScore))).collect(Collectors.toList());
+		System.out.println("Max Average Scores Player");
 		for (IplColumns data : maxAvgPlayerList)
 			System.out.println(data.player);
 		return maxAvgScore;
+	}
+
+	public double maxStrikingRates() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		double maxStrikingRate = list.stream().map(x -> Double.parseDouble(x.strikeRate)).max(Double::compare).get();
+		ArrayList<IplColumns> maxStrikeRateList = (ArrayList<IplColumns>) list.stream()
+				.filter(x -> x.strikeRate.equals(Double.toString(maxStrikingRate))).collect(Collectors.toList());
+		System.out.println("Max Strike Rates Player");
+		for(IplColumns data : maxStrikeRateList)
+			System.out.println(data.player);
+		return maxStrikingRate;
 	}
 
 }
