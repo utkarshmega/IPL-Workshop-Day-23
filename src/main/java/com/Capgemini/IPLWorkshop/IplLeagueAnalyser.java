@@ -20,7 +20,7 @@ public class IplLeagueAnalyser {
 		this.iplMostRunPath = iplMostRunPath;
 	}
 
-	public double topBattingAvg() throws IplAnalyzerException {
+	public ArrayList<IplColumns> mostRuns() throws IplAnalyzerException {
 
 		ArrayList<IplColumns> list = new ArrayList<>();
 
@@ -39,17 +39,21 @@ public class IplLeagueAnalyser {
 				IplColumns csvReader = iplBattingitr.next();
 				list.add(csvReader);
 			}
-			double maxAvgScore = list.stream().filter(x -> !x.average.equals("-"))
-					.map(x -> Double.parseDouble(x.average)).max(Double::compare).get();
-			ArrayList<IplColumns> maxAvgPlayerList = (ArrayList<IplColumns>) list.stream()
-					.filter(x -> x.average.equals(Double.toString(maxAvgScore))).collect(Collectors.toList());
-			for (IplColumns data : maxAvgPlayerList)
-				System.out.println(data.player);
-			return maxAvgScore;
+			return list;
 		} catch (IOException E1) {
 			throw new IplAnalyzerException("Invalid Path Provided", IplAnalyzerException.ExceptionType.INCORRECT_PATH);
 		}
 
+	}
+	public double topBattingAvg() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		double maxAvgScore = list.stream().filter(x -> !x.average.equals("-"))
+				.map(x -> Double.parseDouble(x.average)).max(Double::compare).get();
+		ArrayList<IplColumns> maxAvgPlayerList = (ArrayList<IplColumns>) list.stream()
+				.filter(x -> x.average.equals(Double.toString(maxAvgScore))).collect(Collectors.toList());
+		for (IplColumns data : maxAvgPlayerList)
+			System.out.println(data.player);
+		return maxAvgScore;
 	}
 
 }
