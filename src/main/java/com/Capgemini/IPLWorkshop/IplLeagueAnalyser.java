@@ -5,7 +5,9 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.security.auth.x500.X500Principal;
@@ -71,4 +73,26 @@ public class IplLeagueAnalyser {
 		return maxStrikingRate;
 	}
 
+	public String cricketerWithMax6() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		ArrayList<IplColumns> sortedMax6 = (ArrayList<IplColumns>) list.stream()
+				.sorted((player1, player2) -> Integer.compare(player1.sixes, player2.sixes))
+				.collect(Collectors.toList());
+		Collections.reverse(sortedMax6);
+		System.out.println("Player with maximum sixes is");
+		System.out.println(sortedMax6.get(0).player +" with total number of sixes " +sortedMax6.get(0).sixes);
+		return sortedMax6.get(0).player;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+

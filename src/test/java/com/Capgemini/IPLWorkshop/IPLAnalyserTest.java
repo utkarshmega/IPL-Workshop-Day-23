@@ -26,5 +26,12 @@ public class IPLAnalyserTest {
 		double maxStrikeRate = iplLeagueAnalyser.maxStrikingRates();
 		Assert.assertEquals(333.33, maxStrikeRate, 0.0);
 	}
+	
+	@Test
+	public void playerWithMaximum6Test() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		String playerWithMax6 = iplLeagueAnalyser.cricketerWithMax6();
+		Assert.assertEquals("Andre Russell", playerWithMax6);
+	}
 
 }
