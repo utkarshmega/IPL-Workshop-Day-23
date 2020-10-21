@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class IPLAnalyserTest {
@@ -26,12 +27,19 @@ public class IPLAnalyserTest {
 		double maxStrikeRate = iplLeagueAnalyser.maxStrikingRates();
 		Assert.assertEquals(333.33, maxStrikeRate, 0.0);
 	}
-	
+
 	@Test
 	public void playerWithMaximum6Test() throws IplAnalyzerException {
 		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
 		String playerWithMax6 = iplLeagueAnalyser.cricketerWithMax6();
 		Assert.assertEquals("Andre Russell", playerWithMax6);
+	}
+
+	@Test
+	public void playerWithMaximum4Test() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		String playerWithMax4 = iplLeagueAnalyser.cricketerWithMax4();
+		Assert.assertEquals("Shikhar Dhawan", playerWithMax4);
 	}
 
 }

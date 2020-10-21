@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.security.auth.x500.X500Principal;
-
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -24,9 +22,15 @@ public class IplLeagueAnalyser {
 		this.iplMostRunPath = iplMostRunPath;
 	}
 
+	ArrayList<IplColumns> list;
+
+	/**
+	 * to create an ArrayList of all the data in the FactsSheetOfMostRuns and then
+	 * using it in different functions
+	 */
 	public ArrayList<IplColumns> mostRuns() throws IplAnalyzerException {
 
-		ArrayList<IplColumns> list = new ArrayList<>();
+		list = new ArrayList<>();
 
 		Reader reader = null;
 		try {
@@ -50,6 +54,9 @@ public class IplLeagueAnalyser {
 
 	}
 
+	/**
+	 * to find the player with maximum average scores and return the player name
+	 */
 	public double topBattingAvg() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
 		double maxAvgScore = list.stream().filter(x -> !x.average.equals("-")).map(x -> Double.parseDouble(x.average))
@@ -62,6 +69,9 @@ public class IplLeagueAnalyser {
 		return maxAvgScore;
 	}
 
+	/**
+	 * to find the player with maximum strike rate and return the player name
+	 */
 	public double maxStrikingRates() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
 		double maxStrikingRate = list.stream().map(x -> Double.parseDouble(x.strikeRate)).max(Double::compare).get();
@@ -73,6 +83,10 @@ public class IplLeagueAnalyser {
 		return maxStrikingRate;
 	}
 
+	/**
+	 * to create a list of maximum 6s scoring player in descending order and return
+	 * the player name
+	 */
 	public String cricketerWithMax6() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
 		ArrayList<IplColumns> sortedMax6 = (ArrayList<IplColumns>) list.stream()
@@ -80,19 +94,23 @@ public class IplLeagueAnalyser {
 				.collect(Collectors.toList());
 		Collections.reverse(sortedMax6);
 		System.out.println("Player with maximum sixes is");
-		System.out.println(sortedMax6.get(0).player +" with total number of sixes " +sortedMax6.get(0).sixes);
+		System.out.println(sortedMax6.get(0).player + " with total number of sixes " + sortedMax6.get(0).sixes);
 		return sortedMax6.get(0).player;
 	}
 
+	/**
+	 * to create a list of maximum 4s scoring player in descending order and return
+	 * the player name
+	 */
+	public String cricketerWithMax4() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		ArrayList<IplColumns> sortedMax4 = (ArrayList<IplColumns>) list.stream().sorted((player1, player2) -> {
+			return player2.fours - player1.fours;
+		}).collect(Collectors.toList());
+		System.out.println("Players with maximum number of 4s is");
+		System.out.println(sortedMax4.get(0).player + " with total number of fours " + sortedMax4.get(0).fours);
+		return sortedMax4.get(0).player;
+
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
