@@ -66,7 +66,7 @@ public class IplLeagueAnalyser {
 		ArrayList<IplColumns> maxStrikeRateList = (ArrayList<IplColumns>) list.stream()
 				.filter(x -> x.strikeRate.equals(Double.toString(maxStrikingRate))).collect(Collectors.toList());
 		System.out.println("Max Strike Rates Player");
-		for(IplColumns data : maxStrikeRateList)
+		for (IplColumns data : maxStrikeRateList)
 			System.out.println(data.player);
 		return maxStrikingRate;
 	}
