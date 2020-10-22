@@ -42,4 +42,11 @@ public class IPLAnalyserTest {
 		Assert.assertEquals("Shikhar Dhawan", playerWithMax4);
 	}
 
+	@Test
+	public void playerWithBestStrikeRate6s4s() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		String playerWithBestSR6s4s = iplLeagueAnalyser.cricketerWithMax6sand4sandSR();
+		Assert.assertEquals("Andre Russell", playerWithBestSR6s4s);
+	}
+
 }

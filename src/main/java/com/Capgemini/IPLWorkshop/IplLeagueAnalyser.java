@@ -74,9 +74,9 @@ public class IplLeagueAnalyser {
 	 */
 	public double maxStrikingRates() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
-		double maxStrikingRate = list.stream().map(x -> Double.parseDouble(x.strikeRate)).max(Double::compare).get();
+		double maxStrikingRate = list.stream().map(x -> x.strikeRate).max(Double::compare).get();
 		ArrayList<IplColumns> maxStrikeRateList = (ArrayList<IplColumns>) list.stream()
-				.filter(x -> x.strikeRate.equals(Double.toString(maxStrikingRate))).collect(Collectors.toList());
+				.filter(x -> x.strikeRate == maxStrikingRate).collect(Collectors.toList());
 		System.out.println("Max Strike Rates Player");
 		for (IplColumns data : maxStrikeRateList)
 			System.out.println(data.player);
@@ -111,6 +111,20 @@ public class IplLeagueAnalyser {
 		System.out.println(sortedMax4.get(0).player + " with total number of fours " + sortedMax4.get(0).fours);
 		return sortedMax4.get(0).player;
 
+	}
+
+	public String cricketerWithMax6sand4sandSR() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+
+		double bestRate = list.stream().map(i -> i.strikeRate * 0.2 + i.sixes * 0.5 + i.fours * 0.3)
+				.max(Double::compare).get();
+		ArrayList<IplColumns> playersWtihMax6s4sSr = (ArrayList<IplColumns>) list.stream()
+				.filter(i -> (i.strikeRate * 0.2 + i.sixes * 0.5 + i.fours * 0.3) == bestRate)
+				.collect(Collectors.toList());
+		System.out.println("Player with best strike rate and 6s and 4s");
+		for (IplColumns data : playersWtihMax6s4sSr)
+			System.out.println(data.player);
+		return playersWtihMax6s4sSr.get(0).player;
 	}
 
 }
