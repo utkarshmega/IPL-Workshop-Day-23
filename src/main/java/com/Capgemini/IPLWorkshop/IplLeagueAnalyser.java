@@ -113,6 +113,9 @@ public class IplLeagueAnalyser {
 
 	}
 
+	/**
+	 * to create a list of player with maximum strike rate, no of 6s and no of 4s
+	 */
 	public String cricketerWithMax6sand4sandSR() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
 
@@ -125,6 +128,26 @@ public class IplLeagueAnalyser {
 		for (IplColumns data : playersWtihMax6s4sSr)
 			System.out.println(data.player);
 		return playersWtihMax6s4sSr.get(0).player;
+	}
+
+	/**
+	 * to create a list of player with maximum averages and then with maximum Strike rate
+	 */
+	public String cricketerWithBestSR_Avg() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+
+		double bestAvg = list.stream().map(i -> i.getAverage()).max(Double::compare).get();
+		ArrayList<IplColumns> playerWithBestAvg = (ArrayList<IplColumns>) list.stream()
+				.filter(i -> i.getAverage() == bestAvg).collect(Collectors.toList());
+
+		double bestSR = playerWithBestAvg.stream().map(i -> i.strikeRate).max(Double::compare).get();
+		ArrayList<IplColumns> playerWithBestSR_Avg = (ArrayList<IplColumns>) playerWithBestAvg.stream()
+				.filter(i -> i.strikeRate == bestSR).collect(Collectors.toList());
+
+		System.out.println("Player With Best Strike Rate and Average");
+		for (IplColumns data : playerWithBestSR_Avg)
+			System.out.println(data.player);
+		return playerWithBestSR_Avg.get(0).player;
 	}
 
 }

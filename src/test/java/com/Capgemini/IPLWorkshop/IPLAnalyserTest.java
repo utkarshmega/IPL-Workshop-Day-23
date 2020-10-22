@@ -49,4 +49,10 @@ public class IPLAnalyserTest {
 		Assert.assertEquals("Andre Russell", playerWithBestSR6s4s);
 	}
 
+	@Test
+	public void playerWithBestStrikeRate_Avg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		String playerWithBestSR_Avg = iplLeagueAnalyser.cricketerWithBestSR_Avg();
+		Assert.assertEquals("MS Dhoni", playerWithBestSR_Avg);
+	}
 }

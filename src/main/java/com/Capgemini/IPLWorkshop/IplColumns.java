@@ -45,4 +45,10 @@ public class IplColumns {
 
 	@CsvBindByName(column = "6s")
 	public int sixes;
+	
+	public Double getAverage() {
+		if(average.equals("-"))
+			return 0.0;
+		return Double.parseDouble(average);
+	}
 }
