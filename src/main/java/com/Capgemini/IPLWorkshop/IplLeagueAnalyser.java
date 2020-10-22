@@ -131,7 +131,8 @@ public class IplLeagueAnalyser {
 	}
 
 	/**
-	 * to create a list of player with maximum averages and then with maximum Strike rate
+	 * to create a list of player with maximum averages and then with maximum Strike
+	 * rate
 	 */
 	public String cricketerWithBestSR_Avg() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
@@ -148,6 +149,25 @@ public class IplLeagueAnalyser {
 		for (IplColumns data : playerWithBestSR_Avg)
 			System.out.println(data.player);
 		return playerWithBestSR_Avg.get(0).player;
+	}
+
+	/**
+	 * to create a list of player with maximum runs and best average scores
+	 */
+	public String playerWithMaxRuns_Avg() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+
+		int maxRuns = list.stream().map(i -> i.runs).max(Integer::compare).get();
+		ArrayList<IplColumns> playerMaxRunList = (ArrayList<IplColumns>) list.stream().filter(i -> i.runs == maxRuns)
+				.collect(Collectors.toList());
+
+		double maxAvg = playerMaxRunList.stream().map(i -> i.getAverage()).max(Double::compare).get();
+		ArrayList<IplColumns> playerWithMaxRun_Avg = (ArrayList<IplColumns>) playerMaxRunList.stream()
+				.filter(i -> i.getAverage() == maxAvg).collect(Collectors.toList());
+		System.out.println("Player with max Runs and Best average");
+		for (IplColumns data : playerWithMaxRun_Avg)
+			System.out.println(data.player);
+		return playerWithMaxRun_Avg.get(0).player;
 	}
 
 }

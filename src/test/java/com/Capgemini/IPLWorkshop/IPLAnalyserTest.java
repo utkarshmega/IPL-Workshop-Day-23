@@ -55,4 +55,11 @@ public class IPLAnalyserTest {
 		String playerWithBestSR_Avg = iplLeagueAnalyser.cricketerWithBestSR_Avg();
 		Assert.assertEquals("MS Dhoni", playerWithBestSR_Avg);
 	}
+	
+	@Test
+	public void playerWithBestRuns_Avg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH));
+		String playerWithBestRun_Avg = iplLeagueAnalyser.playerWithMaxRuns_Avg();
+		Assert.assertEquals("David Warner", playerWithBestRun_Avg);
+	}
 }
