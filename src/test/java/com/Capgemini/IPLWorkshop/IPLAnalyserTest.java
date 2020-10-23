@@ -77,6 +77,13 @@ public class IPLAnalyserTest {
 		double maxStrikeRate = iplLeagueAnalyser.topStrikingRates_Bowling();
 		Assert.assertEquals(120.0, maxStrikeRate, 0.0);
 	}
+	
+	@Test
+	public void topEconomyRate() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		double maxEconomyRate = iplLeagueAnalyser.topEconomyRate_Bowler();
+		Assert.assertEquals(4.8, maxEconomyRate, 0.0);
+	}
 }
 
 

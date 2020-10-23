@@ -3,56 +3,60 @@ package com.Capgemini.IPLWorkshopWickets;
 import com.opencsv.bean.CsvBindByName;
 
 public class IplWicketsColumns {
-	
-	@CsvBindByName(column = "POS") 
+
+	@CsvBindByName(column = "POS")
 	public String position;
-	
-	@CsvBindByName(column = "PLAYER") 
+
+	@CsvBindByName(column = "PLAYER")
 	public String player;
-	
-	@CsvBindByName(column = "Mat") 
+
+	@CsvBindByName(column = "Mat")
 	public int matches;
-	
-	@CsvBindByName(column = "Inns") 
+
+	@CsvBindByName(column = "Inns")
 	public int innings;
-	
-	@CsvBindByName(column = "Ov") 
+
+	@CsvBindByName(column = "Ov")
 	public double over;
-	
-	@CsvBindByName(column = "Runs") 
+
+	@CsvBindByName(column = "Runs")
 	public int runs;
-	
-	@CsvBindByName(column = "Wkts") 
+
+	@CsvBindByName(column = "Wkts")
 	public int wickets;
-	
-	@CsvBindByName(column = "BBI") 
+
+	@CsvBindByName(column = "BBI")
 	public int bestBowling;
-	
-	@CsvBindByName(column = "Avg") 
+
+	@CsvBindByName(column = "Avg")
 	public String average;
-	
-	@CsvBindByName(column = "Econ") 
+
+	@CsvBindByName(column = "Econ")
 	public double economy;
-	
-	@CsvBindByName(column = "SR") 
+
+	@CsvBindByName(column = "SR")
 	public String strikeRate;
-	
-	@CsvBindByName(column = "4w") 
+
+	@CsvBindByName(column = "4w")
 	public int four_Wickets;
-	
-	@CsvBindByName(column = "5w") 
+
+	@CsvBindByName(column = "5w")
 	public int five_Wickets;
-	
+
 	public double getAverage() {
-		if(average.equals("-"))
+		if (average.equals("-"))
 			return 0.0;
 		return Double.parseDouble(average);
 	}
-	
+
 	public double getStrikeRate() {
-		if(strikeRate.equals("-"))
+		if (strikeRate.equals("-"))
 			return 0.0;
 		return Double.parseDouble(strikeRate);
+	}
+
+	public double getEconomy() {
+		return economy;
 	}
 
 }
