@@ -91,6 +91,13 @@ public class IPLAnalyserTest {
 		String playerWithMax4w5w = iplLeagueAnalyser.bestSrwith4wAnd5w();
 		Assert.assertEquals("Kagiso Rabada", playerWithMax4w5w);
 	}
+	
+	@Test
+	public void maxSR_BowlingAvg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String playerWithMaxSR_Avg = iplLeagueAnalyser.bestBowlingAvgWithSR();
+		Assert.assertEquals("Alzarri Joseph", playerWithMaxSR_Avg);
+	}
 }
 
 

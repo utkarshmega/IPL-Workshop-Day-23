@@ -267,4 +267,20 @@ public class IplLeagueAnalyser {
 		return maxWcktListSr.get(0).player;
 	}
 
+	/**
+	 * method to find the player with max strike rate and bowling average
+	 */
+	public String bestBowlingAvgWithSR() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		double maxStrikingRate = listWickets.stream().map(i -> i.getStrikeRate()).min(Double::compare).get();
+		ArrayList<IplWicketsColumns> playerMaxSR = (ArrayList<IplWicketsColumns>) listWickets.stream()
+				.filter(i -> i.getStrikeRate() == maxStrikingRate).collect(Collectors.toList());
+		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getAverage);
+		ArrayList<IplWicketsColumns> maxSR_Avg_bowlers = (ArrayList<IplWicketsColumns>) playerMaxSR.stream()
+				.sorted(compare).collect(Collectors.toList());
+		System.out.println("Player with max striking rate and bowling average is ");
+		System.out.println(maxSR_Avg_bowlers.get(0).player);
+		return maxSR_Avg_bowlers.get(0).player;
+	}
+
 }
