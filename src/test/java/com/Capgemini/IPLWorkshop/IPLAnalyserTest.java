@@ -72,10 +72,10 @@ public class IPLAnalyserTest {
 	}
 	
 	@Test
-	public void topStrikeRate() throws IplAnalyzerException {
+	public void topStrikeRate_Bowlers() throws IplAnalyzerException {
 		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
 		double maxStrikeRate = iplLeagueAnalyser.topStrikingRates_Bowling();
-		Assert.assertEquals(120.0, maxStrikeRate, 0.0);
+		Assert.assertEquals(8.66, maxStrikeRate, 0.0);
 	}
 	
 	@Test

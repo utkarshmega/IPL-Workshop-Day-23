@@ -51,7 +51,7 @@ public class IplWicketsColumns {
 
 	public double getStrikeRate() {
 		if (strikeRate.equals("-"))
-			return 0.0;
+			return 100.0;
 		return Double.parseDouble(strikeRate);
 	}
 

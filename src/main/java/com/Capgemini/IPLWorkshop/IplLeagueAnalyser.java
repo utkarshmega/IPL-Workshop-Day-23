@@ -225,10 +225,9 @@ public class IplLeagueAnalyser {
 	 */
 	public double topStrikingRates_Bowling() throws IplAnalyzerException {
 		ArrayList<IplWicketsColumns> listWickets = mostWickets();
-		ArrayList<IplWicketsColumns> topSrPlayer = (ArrayList<IplWicketsColumns>) listWickets.stream()
-				.sorted((Player1, Player2) -> {
-					return (int) (Player2.getStrikeRate() - Player1.getStrikeRate());
-				}).collect(Collectors.toList());
+		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getStrikeRate);
+		ArrayList<IplWicketsColumns> topSrPlayer = (ArrayList<IplWicketsColumns>) listWickets.stream().sorted(compare)
+				.collect(Collectors.toList());
 		System.out.println("Players with top bowling striking rate :");
 		int i = 0;
 		for (IplWicketsColumns data : topSrPlayer) {
