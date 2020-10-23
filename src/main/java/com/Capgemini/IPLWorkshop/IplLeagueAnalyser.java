@@ -281,6 +281,6 @@ public class IplLeagueAnalyser {
 		System.out.println("Player with max striking rate and bowling average is ");
 		System.out.println(maxSR_Avg_bowlers.get(0).player);
 		return maxSR_Avg_bowlers.get(0).player;
-	}
+	} 
 
 }

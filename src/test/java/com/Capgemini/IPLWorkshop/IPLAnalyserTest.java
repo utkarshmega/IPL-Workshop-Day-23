@@ -96,7 +96,7 @@ public class IPLAnalyserTest {
 	public void maxSR_BowlingAvg() throws IplAnalyzerException {
 		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
 		String playerWithMaxSR_Avg = iplLeagueAnalyser.bestBowlingAvgWithSR();
-		Assert.assertEquals("Alzarri Joseph", playerWithMaxSR_Avg);
+		Assert.assertEquals("Alzarri Joseph", playerWithMaxSR_Avg); 
 	}
 }
 
