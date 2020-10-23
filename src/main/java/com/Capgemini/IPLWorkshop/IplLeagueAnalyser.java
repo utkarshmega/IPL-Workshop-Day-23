@@ -281,6 +281,23 @@ public class IplLeagueAnalyser {
 		System.out.println("Player with max striking rate and bowling average is ");
 		System.out.println(maxSR_Avg_bowlers.get(0).player);
 		return maxSR_Avg_bowlers.get(0).player;
-	} 
+	}
+
+	/**
+	 * method to find the player with max number of wickets and bowling average
+	 */
+	public String maxWickets_maxBowlingAvg() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		int maxWIckets = listWickets.stream().map(i -> i.five_Wickets + i.four_Wickets).max(Integer::compare).get();
+		ArrayList<IplWicketsColumns> maxWicketList = (ArrayList<IplWicketsColumns>) listWickets.stream()
+				.filter(i -> (i.five_Wickets + i.four_Wickets) == maxWIckets).collect(Collectors.toList());
+		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getAverage);
+		ArrayList<IplWicketsColumns> maxWicket_Avg = (ArrayList<IplWicketsColumns>) maxWicketList.stream()
+				.sorted(compare).collect(Collectors.toList());
+		Collections.reverse(maxWicket_Avg);
+		System.out.println("Player with max number of wickets and best average is");
+		System.out.println(maxWicket_Avg.get(0).player);
+		return maxWicket_Avg.get(0).player;
+	}
 
 }
