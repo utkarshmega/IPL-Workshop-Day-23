@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -210,28 +211,28 @@ public class IplLeagueAnalyser {
 					return (int) (Player2.getAverage() - Player1.getAverage());
 				}).collect(Collectors.toList());
 		System.out.println("Player with Max Top Bowling Average Scores");
-		int i=0;
+		int i = 0;
 		for (IplWicketsColumns data : maxAvgWicketPlayerList) {
 			System.out.println(data.player + "with top bowling avg " + data.average);
-			if(++i==5)
+			if (++i == 5)
 				break;
 		}
 		return maxAvgScoreWicket;
 	}
-	
+
 	/**
-	 * methods to find the top strike rates for the bowlers 
+	 * methods to find the top strike rates for the bowlers
 	 */
 	public double topStrikingRates_Bowling() throws IplAnalyzerException {
 		ArrayList<IplWicketsColumns> listWickets = mostWickets();
-		ArrayList<IplWicketsColumns> topSrPlayer = (ArrayList<IplWicketsColumns>) listWickets.stream().sorted((Player1, Player2) -> {
-			return (int) (Player2.getStrikeRate() - Player1.getStrikeRate());
-		}).collect(Collectors.toList());
+		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getStrikeRate);
+		ArrayList<IplWicketsColumns> topSrPlayer = (ArrayList<IplWicketsColumns>) listWickets.stream().sorted(compare)
+				.collect(Collectors.toList());
 		System.out.println("Players with top bowling striking rate :");
-		int i=0;
-		for(IplWicketsColumns data: topSrPlayer) {
-			System.out.println(data.player + "with striking rate of " +data.getStrikeRate());
-			if(++i == 5)
+		int i = 0;
+		for (IplWicketsColumns data : topSrPlayer) {
+			System.out.println(data.player + "with striking rate of " + data.getStrikeRate());
+			if (++i == 5)
 				break;
 		}
 		return topSrPlayer.get(0).getStrikeRate();
