@@ -70,6 +70,13 @@ public class IPLAnalyserTest {
 		double playerBowlingAvg = iplLeagueAnalyser.topBowlingAvg();
 		Assert.assertEquals(166.0, playerBowlingAvg, 0.0);
 	}
+	
+	@Test
+	public void topStrikeRate() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		double maxStrikeRate = iplLeagueAnalyser.topStrikingRates_Bowling();
+		Assert.assertEquals(120.0, maxStrikeRate, 0.0);
+	}
 }
 
 

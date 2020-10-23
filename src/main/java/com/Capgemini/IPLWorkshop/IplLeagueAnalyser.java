@@ -218,5 +218,23 @@ public class IplLeagueAnalyser {
 		}
 		return maxAvgScoreWicket;
 	}
+	
+	/**
+	 * methods to find the top strike rates for the bowlers 
+	 */
+	public double topStrikingRates_Bowling() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		ArrayList<IplWicketsColumns> topSrPlayer = (ArrayList<IplWicketsColumns>) listWickets.stream().sorted((Player1, Player2) -> {
+			return (int) (Player2.getStrikeRate() - Player1.getStrikeRate());
+		}).collect(Collectors.toList());
+		System.out.println("Players with top bowling striking rate :");
+		int i=0;
+		for(IplWicketsColumns data: topSrPlayer) {
+			System.out.println(data.player + "with striking rate of " +data.getStrikeRate());
+			if(++i == 5)
+				break;
+		}
+		return topSrPlayer.get(0).getStrikeRate();
+	}
 
 }

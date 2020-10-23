@@ -48,5 +48,11 @@ public class IplWicketsColumns {
 			return 0.0;
 		return Double.parseDouble(average);
 	}
+	
+	public double getStrikeRate() {
+		if(strikeRate.equals("-"))
+			return 0.0;
+		return Double.parseDouble(strikeRate);
+	}
 
 }
