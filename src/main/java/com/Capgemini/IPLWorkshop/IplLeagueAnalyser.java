@@ -4,25 +4,30 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.Capgemini.IPLWorkshopWickets.IplWicketsColumns;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class IplLeagueAnalyser {
 
 	public Path iplMostRunPath;
+	public Path mostWicketsPath;
 
-	public IplLeagueAnalyser(Path iplMostRunPath) {
+	public IplLeagueAnalyser(Path iplMostRunPath, Path mostWicketsPath) {
 
 		this.iplMostRunPath = iplMostRunPath;
+		this.mostWicketsPath = mostWicketsPath;
 	}
 
 	ArrayList<IplColumns> list;
+	ArrayList<IplWicketsColumns> listWicketData;
 
 	/**
 	 * to create an ArrayList of all the data in the FactsSheetOfMostRuns and then
@@ -48,6 +53,29 @@ public class IplLeagueAnalyser {
 				list.add(csvReader);
 			}
 			return list;
+		} catch (IOException E1) {
+			throw new IplAnalyzerException("Invalid Path Provided", IplAnalyzerException.ExceptionType.INCORRECT_PATH);
+		}
+	}
+
+	public ArrayList<IplWicketsColumns> mostWickets() throws IplAnalyzerException {
+
+		listWicketData = new ArrayList<>();
+		Reader reader = null;
+		try {
+			reader = Files.newBufferedReader(mostWicketsPath);
+			CsvToBeanBuilder<IplWicketsColumns> builder = new CsvToBeanBuilder<IplWicketsColumns>(reader);
+			builder.withType(IplWicketsColumns.class);
+			builder.withIgnoreLeadingWhiteSpace(true);
+
+			CsvToBean<IplWicketsColumns> csvToBean = builder.build();
+
+			Iterator<IplWicketsColumns> iplBattingitr = csvToBean.iterator();
+			while (iplBattingitr.hasNext()) {
+				IplWicketsColumns csvReader = iplBattingitr.next();
+				listWicketData.add(csvReader);
+			}
+			return listWicketData;
 		} catch (IOException E1) {
 			throw new IplAnalyzerException("Invalid Path Provided", IplAnalyzerException.ExceptionType.INCORRECT_PATH);
 		}
@@ -168,6 +196,27 @@ public class IplLeagueAnalyser {
 		for (IplColumns data : playerWithMaxRun_Avg)
 			System.out.println(data.player);
 		return playerWithMaxRun_Avg.get(0).player;
+	}
+
+	/**
+	 * to find the player with top bowling average
+	 */
+	public double topBowlingAvg() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		double maxAvgScoreWicket = listWickets.stream().filter(x -> !x.average.equals("-"))
+				.map(x -> Double.parseDouble(x.average)).max(Double::compare).get();
+		ArrayList<IplWicketsColumns> maxAvgWicketPlayerList = (ArrayList<IplWicketsColumns>) listWickets.stream()
+				.sorted((Player1, Player2) -> {
+					return (int) (Player2.getAverage() - Player1.getAverage());
+				}).collect(Collectors.toList());
+		System.out.println("Player with Max Top Bowling Average Scores");
+		int i=0;
+		for (IplWicketsColumns data : maxAvgWicketPlayerList) {
+			System.out.println(data.player + "with top bowling avg " + data.average);
+			if(++i==5)
+				break;
+		}
+		return maxAvgScoreWicket;
 	}
 
 }
