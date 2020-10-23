@@ -84,6 +84,13 @@ public class IPLAnalyserTest {
 		double maxEconomyRate = iplLeagueAnalyser.topEconomyRate_Bowler();
 		Assert.assertEquals(4.8, maxEconomyRate, 0.0);
 	}
+	
+	@Test
+	public void maxSR5w4w() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String playerWithMax4w5w = iplLeagueAnalyser.bestSrwith4wAnd5w();
+		Assert.assertEquals("Kagiso Rabada", playerWithMax4w5w);
+	}
 }
 
 

@@ -251,4 +251,20 @@ public class IplLeagueAnalyser {
 		return topEconomyRateList.get(0).economy;
 	}
 
+	/**
+	 * method to find the player with max strike rate with 5 wickets and 4 wickets
+	 */
+	public String bestSrwith4wAnd5w() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		int maxWickets = listWickets.stream().map(i -> i.four_Wickets + i.five_Wickets).max(Integer::compare).get();
+		ArrayList<IplWicketsColumns> maxWcktList = (ArrayList<IplWicketsColumns>) listWickets.stream()
+				.filter(i -> (i.five_Wickets + i.four_Wickets) == maxWickets).collect(Collectors.toList());
+		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getStrikeRate);
+		ArrayList<IplWicketsColumns> maxWcktListSr = (ArrayList<IplWicketsColumns>) maxWcktList.stream().sorted(compare)
+				.collect(Collectors.toList());
+		System.out.println("Player with max Strike rate with 5w and 4w is ");
+		System.out.println(maxWcktListSr.get(0).player);
+		return maxWcktListSr.get(0).player;
+	}
+
 }
