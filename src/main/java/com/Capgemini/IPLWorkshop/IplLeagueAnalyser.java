@@ -288,9 +288,9 @@ public class IplLeagueAnalyser {
 	 */
 	public String maxWickets_maxBowlingAvg() throws IplAnalyzerException {
 		ArrayList<IplWicketsColumns> listWickets = mostWickets();
-		int maxWIckets = listWickets.stream().map(i -> i.five_Wickets + i.four_Wickets).max(Integer::compare).get();
+		int maxWIckets = listWickets.stream().map(i -> i.wickets).max(Integer::compare).get();
 		ArrayList<IplWicketsColumns> maxWicketList = (ArrayList<IplWicketsColumns>) listWickets.stream()
-				.filter(i -> (i.five_Wickets + i.four_Wickets) == maxWIckets).collect(Collectors.toList());
+				.filter(i -> i.wickets == maxWIckets).collect(Collectors.toList());
 		Comparator<IplWicketsColumns> compare = Comparator.comparing(IplWicketsColumns::getAverage);
 		ArrayList<IplWicketsColumns> maxWicket_Avg = (ArrayList<IplWicketsColumns>) maxWicketList.stream()
 				.sorted(compare).collect(Collectors.toList());
