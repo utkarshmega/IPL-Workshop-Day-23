@@ -112,6 +112,13 @@ public class IPLAnalyserTest {
 		String playerWithWickets_Avg = iplLeagueAnalyser.bestBowlingBattingAvg();
 		Assert.assertEquals("Ben Cutting", playerWithWickets_Avg);
 	}
+	
+	@Test
+	public void allRounder() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String allRounder = iplLeagueAnalyser.allRounder();
+		Assert.assertEquals("Ben Cutting", allRounder);
+	}
 }
 
 

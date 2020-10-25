@@ -331,4 +331,17 @@ public class IplLeagueAnalyser {
 		return bestBatting_Bowling_avg.get(0).playerName;
 	}
 
+	/**
+	 * to find the all rounder of the series
+	 */
+	public String allRounder() throws IplAnalyzerException {
+		ArrayList<IplPlayerColumn> newPlayerList = findNewListForUCs();
+		int mostRunsAndWickets = newPlayerList.stream().map(i -> i.runs + i.wickets).max(Integer::compare).get();
+		ArrayList<IplPlayerColumn> allRounderlist = (ArrayList<IplPlayerColumn>) newPlayerList.stream()
+				.filter(i -> (i.runs + i.wickets) == mostRunsAndWickets).collect(Collectors.toList());
+		System.out.println("All rounder player of the series is");
+		System.out.println(allRounderlist.get(0).playerName);
+		return allRounderlist.get(0).playerName;
+	}
+
 }

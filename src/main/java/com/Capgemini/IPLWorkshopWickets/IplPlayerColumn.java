@@ -3,10 +3,10 @@ package com.Capgemini.IPLWorkshopWickets;
 public class IplPlayerColumn {
 	
 	public String playerName;
-	String battingAvg;
-	String bowlingAvg;
-	int runs;
-	int wickets;
+	public String battingAvg;
+	public String bowlingAvg;
+	public int runs;
+	public int wickets;
 	
 	public IplPlayerColumn(String playerName, String battingAvg, String bowlingAvg, int runs, int wickets){
 		this.playerName = playerName;
