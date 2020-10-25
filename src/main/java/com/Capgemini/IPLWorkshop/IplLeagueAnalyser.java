@@ -344,16 +344,35 @@ public class IplLeagueAnalyser {
 		return allRounderlist.get(0).playerName;
 	}
 
+	/**
+	 * to find the player with maximum hundred and best striking average
+	 */
 	public String maxHundred_BattingAvg() throws IplAnalyzerException {
 		ArrayList<IplColumns> list = mostRuns();
 		ArrayList<IplColumns> maxHund = (ArrayList<IplColumns>) list.stream()
 				.sorted((player1, player2) -> player2.hundreds - player1.hundreds).collect(Collectors.toList());
 		Comparator<IplColumns> compare = Comparator.comparing(IplColumns::getAverage);
-		ArrayList<IplColumns> maxHund_batAvg = (ArrayList<IplColumns>) maxHund.stream()
-				.sorted(compare).collect(Collectors.toList());
+		ArrayList<IplColumns> maxHund_batAvg = (ArrayList<IplColumns>) maxHund.stream().sorted(compare)
+				.collect(Collectors.toList());
 		System.out.println("Player with max hundred and best striking rate is");
 		System.out.println(maxHund_batAvg.get(0).player);
 		return maxHund_batAvg.get(0).player;
+	}
+
+	/**
+	 * added method to find the player with zero century and max striking rates
+	 */
+	public String zeroCenturies_maxAvg() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		ArrayList<IplColumns> zeroCentury = (ArrayList<IplColumns>) list.stream()
+				.filter(i -> (i.hundreds - i.fifties) == 0).collect(Collectors.toList());
+		Comparator<IplColumns> compare = Comparator.comparing(IplColumns::getAverage);
+		ArrayList<IplColumns> zeroCentury_batAvg = (ArrayList<IplColumns>) zeroCentury.stream()
+				.sorted(compare).collect(Collectors.toList());
+		System.out.println("Player with best striking rate and zero Century is");
+		System.out.println(zeroCentury_batAvg.get(0).player);
+		return zeroCentury_batAvg.get(0).player;
+
 	}
 
 }

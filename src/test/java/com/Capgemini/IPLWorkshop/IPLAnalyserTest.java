@@ -126,6 +126,13 @@ public class IPLAnalyserTest {
 		String hund_battingAvg = iplLeagueAnalyser.maxHundred_BattingAvg();
 		Assert.assertEquals("Harpreet Brar", hund_battingAvg);
 	}
+	
+	@Test
+	public void zeroHundred_Avg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String zerohund_battingAvg = iplLeagueAnalyser.zeroCenturies_maxAvg();
+		Assert.assertEquals("Harpreet Brar", zerohund_battingAvg);
+	}
 }
 
 
