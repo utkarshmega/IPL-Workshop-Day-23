@@ -344,4 +344,16 @@ public class IplLeagueAnalyser {
 		return allRounderlist.get(0).playerName;
 	}
 
+	public String maxHundred_BattingAvg() throws IplAnalyzerException {
+		ArrayList<IplColumns> list = mostRuns();
+		ArrayList<IplColumns> maxHund = (ArrayList<IplColumns>) list.stream()
+				.sorted((player1, player2) -> player2.hundreds - player1.hundreds).collect(Collectors.toList());
+		Comparator<IplColumns> compare = Comparator.comparing(IplColumns::getAverage);
+		ArrayList<IplColumns> maxHund_batAvg = (ArrayList<IplColumns>) maxHund.stream()
+				.sorted(compare).collect(Collectors.toList());
+		System.out.println("Player with max hundred and best striking rate is");
+		System.out.println(maxHund_batAvg.get(0).player);
+		return maxHund_batAvg.get(0).player;
+	}
+
 }

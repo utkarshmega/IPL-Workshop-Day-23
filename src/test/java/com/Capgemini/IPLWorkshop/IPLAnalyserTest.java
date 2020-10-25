@@ -119,6 +119,13 @@ public class IPLAnalyserTest {
 		String allRounder = iplLeagueAnalyser.allRounder();
 		Assert.assertEquals("Ben Cutting", allRounder);
 	}
+	
+	@Test
+	public void maxHundred_Avg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String hund_battingAvg = iplLeagueAnalyser.maxHundred_BattingAvg();
+		Assert.assertEquals("Harpreet Brar", hund_battingAvg);
+	}
 }
 
 
