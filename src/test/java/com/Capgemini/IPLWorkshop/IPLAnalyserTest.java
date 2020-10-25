@@ -105,6 +105,13 @@ public class IPLAnalyserTest {
 		String playerWithWickets_Avg = iplLeagueAnalyser.maxWickets_maxBowlingAvg();
 		Assert.assertEquals("Imran Tahir", playerWithWickets_Avg); 
 	}
+	
+	@Test
+	public void maxBowling_BattingAvg() throws IplAnalyzerException {
+		IplLeagueAnalyser iplLeagueAnalyser = new IplLeagueAnalyser(Paths.get(IPL_MOSTRUN_PATH), Paths.get(IPL_MOSTWCKTS_PATH));
+		String playerWithWickets_Avg = iplLeagueAnalyser.bestBowlingBattingAvg();
+		Assert.assertEquals("Ben Cutting", playerWithWickets_Avg);
+	}
 }
 
 

@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.Capgemini.IPLWorkshopWickets.IplPlayerColumn;
 import com.Capgemini.IPLWorkshopWickets.IplWicketsColumns;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -298,6 +299,36 @@ public class IplLeagueAnalyser {
 		System.out.println("Player with max number of wickets and best average is");
 		System.out.println(maxWicket_Avg.get(0).player);
 		return maxWicket_Avg.get(0).player;
+	}
+
+	/**
+	 * Method to create the list of players which bowl and bat both
+	 */
+	public ArrayList<IplPlayerColumn> findNewListForUCs() throws IplAnalyzerException {
+		ArrayList<IplWicketsColumns> listWickets = mostWickets();
+		ArrayList<IplColumns> list = mostRuns();
+		ArrayList<IplPlayerColumn> newPlayerList = new ArrayList<>();
+		for (int i = 0; i < listWickets.size(); i++) {
+			if (listWickets.get(i).player.equals(list.get(i).player)) {
+				newPlayerList.add(new IplPlayerColumn(list.get(i).player, list.get(i).average,
+						listWickets.get(i).average, list.get(i).runs, listWickets.get(i).wickets));
+			}
+		}
+		return newPlayerList;
+	}
+
+	/**
+	 * Method to find the best to player name with batting nd bowling average
+	 */
+	public String bestBowlingBattingAvg() throws IplAnalyzerException {
+		ArrayList<IplPlayerColumn> newPlayerList = findNewListForUCs();
+		double bestScore = newPlayerList.stream().map(i -> i.getBattingAvg() + i.getBowlingAvg()).max(Double::compare)
+				.get();
+		ArrayList<IplPlayerColumn> bestBatting_Bowling_avg = (ArrayList<IplPlayerColumn>) newPlayerList.stream()
+				.filter(i -> (i.getBattingAvg() + i.getBowlingAvg()) == bestScore).collect(Collectors.toList());
+		System.out.println("Player with best average batting and bowling score is");
+		System.out.println(bestBatting_Bowling_avg.get(0).playerName);
+		return bestBatting_Bowling_avg.get(0).playerName;
 	}
 
 }
